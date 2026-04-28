@@ -7,25 +7,25 @@
             <style>
                 body { margin: 0; background: #000; font-family: 'Open Sans', sans-serif; overflow: hidden; }
                 
-            .container { width: 100vw; height: 100vh;  position: relative; }
+            .container { width: 100vw; height: 100vh; max-width: 600px; margin: auto; position: relative; }
             .slide .item { position: absolute; transform: translate(0, -50%); border-radius: 40px; background-size: cover; background-position: center; transition: 0.8s; box-shadow: 0 60px 100px rgba(0,0,0,0.95); }
             .slide .item:nth-child(1), .slide .item:nth-child(2) { top:0; left:0; transform:translate(0,0); border-radius:0; width:100%; height:100%; }
-            .slide .item:nth-child(3) { left: 60%; }
-            .slide .item:nth-child(4) { left: calc(60% + 330px); }
+            .slide .item:nth-child(3) { left: 50%; }
+            .slide .item:nth-child(4) { left: calc(50% + 250px); }
             .slide .item:nth-child(5) { left: calc(60% + 660px); }
             .slide .item:nth-child(n+6) { opacity: 0; }
 
             .content { 
-                position: absolute; top: 50%; left: 80px; transform: translateY(-50%); 
-                color: #fff; z-index: 99; width: 700px; padding: 35px;
+                position: absolute; top: 50%; left: 30px; transform: translateY(-50%); 
+                color: #fff; z-index: 99; width: 80%; padding: 35px;
                 border-radius: 20px; background: rgba(0,0,0,0.35); backdrop-filter: blur(12px);
                 border: 1px solid rgba(255,255,255,0.15); display: none;
             }
             .slide .item:nth-child(2) .content { display: block; animation: showContent 0.8s ease-out 1 forwards; }
 
-            .name { font-family: 'Montserrat'; font-size: 85px; font-weight: 900; text-transform: uppercase; padding-left: 20px; line-height: 1.1; text-shadow: 5px 5px 20px rgba(0,0,0,1); }
-            .des { font-size: 20px; margin-top: 20px; line-height: 1.5; color: #eee; font-weight: 400; }
-            .tag { display: inline-block; padding: 5px 15px; border-radius: 5px; color: #000; font-weight: 800; margin-bottom: 15px; text-transform: uppercase; font-size: 16px; }
+            .name { font-family: 'Montserrat'; font-size: 50px; font-weight: 900; text-transform: uppercase; padding-left: 20px; line-height: 1.1; text-shadow: 5px 5px 20px rgba(0,0,0,1); }
+            .des { font-size: 16px; margin-top: 20px; line-height: 1.5; color: #eee; font-weight: 400; }
+            .tag { display: inline-block; padding: 5px 15px; border-radius: 5px; color: #000; font-weight: 800; margin-bottom: 15px; text-transform: uppercase; font-size: 14px; }
 
             @keyframes showContent { from { opacity: 0; transform: translate(0, 50px); filter: blur(20px); } to { opacity: 1; transform: translate(0, 0); filter: blur(0); } }
         
