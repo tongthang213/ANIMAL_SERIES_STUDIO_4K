@@ -3,92 +3,86 @@
         <html>
         <head>
             <meta charset="UTF-8">
-            <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Open+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+            <title>Animal Studio Cinema</title>
+            <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
             <style>
-                body { margin: 0; background: #000; font-family: 'Open Sans', sans-serif; }
+                body { margin:0; background:#000; overflow:hidden; font-family: 'Open Sans', sans-serif; }
                 
-            .container { width: 100vw; height: 100vh; max-width: 600px; margin: auto; position: relative; }
-            .item { width: 100%; height: 100%; position: absolute; top: 0; left: 0; display: none; overflow: hidden; }
-            .item:first-child { display: block; }
-            .video-bg { width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 1; }
-            .video-bg video, .video-bg iframe { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
-            
-
-            .content { 
-                position: absolute; 
-                top: 50%; 
-                left: 30px; 
-                transform: translateY(-50%); 
-                color: #fff; 
-                z-index: 10; 
-                width: 80%; 
-                padding: 40px;
-                border-radius: 25px;
-                background: rgba(0,0,0,0.3);
-                backdrop-filter: blur(10px);
-                border: 1px solid rgba(255,255,255,0.1);
-            }
-            .name { 
-                font-family: 'Montserrat'; 
-                font-size: 55px; 
-                font-weight: 900; 
-                text-transform: uppercase; 
-                padding-left: 25px; 
-                line-height: 1.0;
-                text-shadow: 5px 5px 20px rgba(0,0,0,0.8);
-            }
-            .des { 
-                font-size: 16px; 
-                margin-top: 25px; 
-                text-shadow: 2px 2px 10px #000; 
-                line-height: 1.5;
-                font-weight: 400;
-                color: #e0e0e0;
-                letter-spacing: 0.5px;
-            }
-            .tag { 
-                display: inline-block; 
-                padding: 6px 20px; 
-                border-radius: 50px; 
-                color: #000; 
-                font-weight: 800; 
-                margin-bottom: 20px; 
-                text-transform: uppercase; 
-                font-size: 14px;
-                letter-spacing: 1px;
-            }
+            .container { width: 100vw; height: 100vh;  }
+            .slide .item { width: 300px; height: 450px; top: 82%; }
+            .item .content { left: 100px; width: 900px; top: 50%; padding: 50px; }
+            .name { font-size: 130px; }
         
-                .overlay { 
-                    position: absolute; 
-                    top: 0; 
-                    left: 0; 
-                    width: 100%; 
-                    height: 100%; 
-                    background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.7) 100%); 
-                    z-index: 5; 
-                }
-                .controls { position: absolute; bottom: 50px; width: 100%; text-align: center; z-index: 100; }
-                .controls button { width: 70px; height: 70px; border-radius: 50%; border: 2px solid #fff; background: rgba(0,0,0,0.5); color: #fff; font-size: 25px; cursor: pointer; margin: 0 15px; transition: 0.3s; }
-                .controls button:hover { background: orange; color: #000; border-color: orange; transform: scale(1.1); }
+                .container { position: relative; }
+                .slide .item { position: absolute; transform: translate(0, -50%); border-radius: 40px; background-size: cover; background-position: center; transition: 0.8s; box-shadow: 0 60px 100px rgba(0,0,0,0.95); }
+                .slide .item:nth-child(1), .slide .item:nth-child(2) { top:0; left:0; transform:translate(0,0); border-radius:0; width:100%; height:100%; }
+                .slide .item:nth-child(3) { left: 60%; }
+                .slide .item:nth-child(4) { left: calc(60% + 330px); }
+                .slide .item:nth-child(5) { left: calc(60% + 660px); }
+                .slide .item:nth-child(n+6) { opacity: 0; }
+                .overlay { position: absolute; width: 100%; height: 100%; background: linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.9) 100%); z-index: 1; }
+                .item .content { position: absolute; color: #fff; transform: translate(0, -50%); display: none; z-index: 99; border-radius: 40px; backdrop-filter: blur(20px); background: rgba(0,0,0,0.4); border: 2px solid rgba(255,255,255,0.2); }
+                .slide .item:nth-child(2) .content { display: block; animation: showContent 0.9s ease-out 1 forwards; }
+                .theme-tag { display: inline-block; padding: 8px 30px; border-radius: 50px; font-weight: bold; margin-bottom: 30px; font-family: 'Montserrat'; text-transform: uppercase; color: #000; font-size: 16px; letter-spacing: 2px; }
+                @keyframes showContent { from { opacity: 0; transform: translate(0, 100px); filter: blur(40px); } to { opacity: 1; transform: translate(0, 0); filter: blur(0); } }
+                .name { font-family: 'Montserrat', sans-serif; font-weight: 900; text-transform: uppercase; margin: 0; padding-left: 35px; line-height: 0.85; text-shadow: 15px 15px 50px rgba(0,0,0,1); }
+                .des { margin: 40px 0; line-height: 1.4; color: #fff; font-weight: 400; text-shadow: 4px 4px 25px rgba(0,0,0,1); }
+                .note-box { font-weight: 900; font-size: 40px; font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 4px; }
+                .btn { position: absolute; bottom: 50px; width: 100%; text-align: center; z-index: 1000; }
+                .btn button { width: 100px; height: 100px; cursor: pointer; border-radius: 50%; border: 4px solid #fff; background: rgba(0,0,0,0.7); color: white; font-size: 45px; margin: 0 30px; transition: 0.4s; }
+                .btn button:hover { background: orange; border-color: orange; color: #000; transform: scale(1.2); }
             </style>
         </head>
         <body>
             <div class="container">
-                <div class="slide-wrapper"></div>
-                <div class="controls">
-                    <button onclick="prev()">❮</button>
-                    <button onclick="next()">❯</button>
+                <div class="slide">
+                <div class="item" style="background-image: url('assets/1.png');">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <div class="theme-tag" style="background: #FF5722;">Farm & Pets</div>
+                        <div class="name" style="border-left: 12px solid #FF5722;">Con Chó (DOG)</div>
+                        <div class="des"></div>
+                        <div class="note-box" style="color: #FF5722; text-shadow: 0 0 20px #FF5722;">Chó là người bạn trung thành nhất. Chúng có khứu giác nhạy gấp 10.000 lần con người.</div>
+                    </div>
                 </div>
+                <div class="item" style="background-image: url('assets/2.png');">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <div class="theme-tag" style="background: #FF5722;">Farm & Pets</div>
+                        <div class="name" style="border-left: 12px solid #FF5722;">Con Mèo (Cat)</div>
+                        <div class="des">Mèo là bậc thầy thăng bằng. Chúng có thể nhảy cao gấp 6 lần chiều dài cơ thể mình</div>
+                        <div class="note-box" style="color: #FF5722; text-shadow: 0 0 20px #FF5722;"></div>
+                    </div>
+                </div>
+                <div class="item" style="background-image: url('assets/3.jpg');">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <div class="theme-tag" style="background: #E0F7FA;">Farm & Pets</div>
+                        <div class="name" style="border-left: 12px solid #E0F7FA;">Con Gà (Chicken)</div>
+                        <div class="des">ngựa ngủ đứng. chạy 70km/hngựa ngủ đứng. chạy 70km/</div>
+                        <div class="note-box" style="color: #E0F7FA; text-shadow: 0 0 20px #E0F7FA;"></div>
+                    </div>
+                </div>
+                <div class="item" style="background-image: url('assets/4.jpg');">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <div class="theme-tag" style="background: #E0F7FA;">Farm & Pets</div>
+                        <div class="name" style="border-left: 12px solid #E0F7FA;">NGỰA</div>
+                        <div class="des">ngựa ngủ đứng. chạy 70km/h</div>
+                        <div class="note-box" style="color: #E0F7FA; text-shadow: 0 0 20px #E0F7FA;"></div>
+                    </div>
+                </div></div>
+                <div class="btn"><button class="prev">❮</button><button class="next">❯</button></div>
             </div>
             <script>
-                let current = 0;
-                let items = document.querySelectorAll('.item');
-                function show(index) {
-                    items.forEach(it => it.style.display = 'none');
-                    items[index].style.display = 'block';
+                document.querySelector('.next').onclick = () => {
+                    let items = document.querySelectorAll('.item');
+                    if(items.length > 1) document.querySelector('.slide').appendChild(items[0]);
                 }
-                function next() { current = (current + 1) % items.length; show(current); }
-                function prev() { current = (current - 1 + items.length) % items.length; show(current); }
+                document.querySelector('.prev').onclick = () => {
+                    let items = document.querySelectorAll('.item');
+                    if(items.length > 1) document.querySelector('.slide').prepend(items[items.length - 1]);
+                }
             </script>
         </body>
         </html>
