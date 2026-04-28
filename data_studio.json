@@ -5,20 +5,31 @@
             "img": "1.png",
             "title": "Con Chó (Dog)",
             "desc": "\"Chó là người bạn trung thành nhất. Chúng có khứu giác nhạy gấp 10.000 lần con người.\"",
+            "note": "\"Chó là người bạn trung thành nhất. Chúng có khứu giác nhạy gấp 10.000 lần con người.\"",
             "theme": "Rừng",
             "label": "Farm & Pets"
         },
         {
             "img": "2.png",
             "title": "Con Mèo (Cat)",
-            "desc": "",
+            "desc": "\"Mèo là bậc thầy thăng bằng. Chúng có thể nhảy cao gấp 6 lần chiều dài cơ thể mình.\"",
+            "note": "\"Mèo là bậc thầy thăng bằng. Chúng có thể nhảy cao gấp 6 lần chiều dài cơ thể mình.\"",
             "theme": "Biển",
             "label": "Farm & Pets"
         },
         {
-            "img": "",
-            "title": "",
-            "desc": "",
+            "img": "3.png",
+            "title": "Con Gà (Chicken)",
+            "desc": "\"Gà trống gáy để báo thức. Gà mái có thể đẻ tới 300 quả trứng mỗi năm.\"",
+            "note": "\"Gà trống gáy để báo thức. Gà mái có thể đẻ tới 300 quả trứng mỗi năm.\"",
+            "theme": "Sa mạc",
+            "label": "Farm & Pets"
+        },
+        {
+            "img": "4.png",
+            "title": "Con Vịt (Duck)",
+            "desc": "\"Bộ lông của vịt không hề bị thấm nước, giúp chúng luôn khô ráo khi bơi lội.\"",
+            "note": "\"Bộ lông của vịt không hề bị thấm nước, giúp chúng luôn khô ráo khi bơi lội.\"",
             "theme": "Tuyết",
             "label": "Farm & Pets"
         },
@@ -26,13 +37,15 @@
             "img": "",
             "title": "",
             "desc": "",
-            "theme": "Tuyết",
+            "note": "",
+            "theme": "Núi lửa",
             "label": "Farm & Pets"
         },
         {
             "img": "",
             "title": "",
             "desc": "",
+            "note": "",
             "theme": "Rừng",
             "label": "Farm & Pets"
         },
@@ -40,6 +53,7 @@
             "img": "",
             "title": "",
             "desc": "",
+            "note": "",
             "theme": "Rừng",
             "label": "Farm & Pets"
         },
@@ -47,13 +61,7 @@
             "img": "",
             "title": "",
             "desc": "",
-            "theme": "Rừng",
-            "label": "Farm & Pets"
-        },
-        {
-            "img": "",
-            "title": "",
-            "desc": "",
+            "note": "",
             "theme": "Rừng",
             "label": "Farm & Pets"
         }
