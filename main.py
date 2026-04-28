@@ -227,6 +227,25 @@ def main(page: ft.Page):
         </body>
         </html>'''
 
+    def preview_local(e):
+        """Tạo file index.html và mở trình duyệt để xem trước tại máy"""
+        save_data()
+        html_content = generate_html_content()
+        with open("index.html", "w", encoding="utf-8") as f:
+            f.write(html_content)
+
+        path = os.path.abspath("index.html")
+        try:
+            # Mở file index.html bằng trình duyệt mặc định
+            os.startfile(path)
+        except AttributeError:
+            # Dành cho macOS/Linux nếu cần
+            subprocess.run(["open", path])
+
+        page.snack_bar = ft.SnackBar(ft.Text("Đang mở bản xem trước trên trình duyệt..."))
+        page.snack_bar.open = True
+        page.update()
+
     def deploy(e):
         """Đẩy dữ liệu lên GitHub"""
         save_data()
@@ -234,9 +253,9 @@ def main(page: ft.Page):
             f.write(generate_html_content())
         try:
             subprocess.run(["git", "add", "."], check=True)
-            subprocess.run(["git", "commit", "-m", "Back to photo slide with stable UI"], check=True)
+            subprocess.run(["git", "commit", "-m", "Manual update from Studio"], check=True)
             subprocess.run(["git", "push", "origin", "main"], check=True)
-            page.snack_bar = ft.SnackBar(ft.Text("Đã cập nhật Slide Ảnh lên GitHub!"))
+            page.snack_bar = ft.SnackBar(ft.Text("Đã cập nhật lên GitHub! Hãy đợi 1-2 phút để web đổi mới."))
             page.snack_bar.open = True
         except Exception as ex:
             page.snack_bar = ft.SnackBar(ft.Text(f"Lỗi: {ex}"))
@@ -255,8 +274,20 @@ def main(page: ft.Page):
             entries_container,
             ft.Row([
                 ft.FilledButton("THÊM ẢNH", icon=ft.Icons.ADD_A_PHOTO, on_click=add_more),
-                ft.FilledButton("CẬP NHẬT WEBSITE (GITHUB)", icon=ft.Icons.UPLOAD, on_click=deploy, bgcolor="blue",
-                                width=400, height=60)
+                ft.FilledButton(
+                    "XEM TRỰC TIẾP",
+                    icon=ft.Icons.PREVIEW,
+                    on_click=preview_local,
+                    bgcolor=ft.Colors.GREEN_700
+                ),
+                ft.FilledButton(
+                    "ĐẨY LÊN GITHUB",
+                    icon=ft.Icons.UPLOAD,
+                    on_click=deploy,
+                    bgcolor=ft.Colors.BLUE_700,
+                    width=350,
+                    height=60
+                )
             ], alignment=ft.MainAxisAlignment.CENTER, spacing=20)
         ], expand=True)
     )
