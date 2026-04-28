@@ -25,7 +25,7 @@ def main(page: ft.Page):
     all_rows_data = []
     entries_container = ft.Column(spacing=15, scroll=ft.ScrollMode.ADAPTIVE, expand=True)
 
-    # Ô nhập nhạc nền (mặc định lấy tên file bạn đã upload)
+    # Ô nhập nhạc nền
     bg_music_input = ft.TextField(
         label="Tên file nhạc nền (vd: Splashing Around - The Green Orbs.mp3)",
         value="Splashing Around - The Green Orbs.mp3",
@@ -60,7 +60,6 @@ def main(page: ft.Page):
 
     def create_animal_row(img_val="", title_val="", desc_val="", note_val="", voice_val="Nữ", theme_val="Rừng",
                           label_val=""):
-        # Tạo controls trước
         f1 = ft.TextField(label="File ảnh", width=120, value=img_val, border_color="orange")
         f2 = ft.TextField(label="Tiêu đề", width=180, value=title_val)
         f3 = ft.TextField(label="Giới thiệu", expand=True, value=desc_val)
@@ -79,7 +78,6 @@ def main(page: ft.Page):
                      ft.dropdown.Option("Tuyết")]
         )
 
-        # Gán sự kiện on_change sau để tránh lỗi version Flet
         f1.on_change = on_change_handler
         f2.on_change = on_change_handler
         f3.on_change = on_change_handler
@@ -165,7 +163,6 @@ def main(page: ft.Page):
                     "color": theme_map.get(r["theme"].value, "#ffffff")
                 })
 
-        # Cấu hình Thumbnail tự động co giãn thông minh
         if num_items <= 3:
             thumb_w, thumb_h = ("120px", "180px") if is_vertical else ("220px", "330px")
         elif num_items <= 6:
@@ -202,7 +199,6 @@ def main(page: ft.Page):
                 .des {{ font-size: 20px; color: #ddd; margin-bottom: 25px; line-height: 1.6; font-weight: 400; }}
                 .note-box {{ font-family: 'Montserrat'; font-weight: 800; font-size: 32px; text-transform: uppercase; letter-spacing: 1px; }}
 
-                /* THANH THUMBNAIL TỐI ƯU */
                 .thumbnails {{ 
                     position: absolute; 
                     bottom: 50px; 
@@ -227,7 +223,6 @@ def main(page: ft.Page):
 
                 #start-overlay {{ position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 999; display: flex; align-items: center; justify-content: center; }}
                 #start-btn {{ padding: 25px 60px; font-family: 'Montserrat'; font-size: 26px; font-weight: 900; background: orange; color: #000; border: none; border-radius: 50px; cursor: pointer; transition: 0.3s; }}
-                #start-btn:hover {{ transform: scale(1.1); background: #fff; }}
 
                 @keyframes showContent {{ from {{ opacity: 0; transform: translate(-30px, -50%); }} to {{ opacity: 1; transform: translate(0, -50%); }} }}
             </style>
@@ -273,20 +268,33 @@ def main(page: ft.Page):
                     const textToRead = `${{item.title}}. ${{item.desc}}. ${{item.note}}`;
                     const utter = new SpeechSynthesisUtterance(textToRead);
                     utter.lang = 'vi-VN';
+                    utter.volume = 1.0; // Đặt âm lượng giọng đọc lớn nhất
+                    utter.rate = 0.88;  // Đọc chậm hơn để bé dễ nghe
+
                     const voices = synth.getVoices();
                     const viVoices = voices.filter(v => v.lang.includes('vi'));
 
+                    // Logic lọc giọng thông minh hơn
                     if (item.voice === 'Nam') {{
-                        utter.voice = viVoices.find(v => v.name.includes('Male') || v.name.includes('An') || v.name.includes('Lê Minh')) || viVoices[0];
+                        utter.voice = viVoices.find(v => 
+                            v.name.toLowerCase().includes('male') || 
+                            v.name.toLowerCase().includes('an') || 
+                            v.name.toLowerCase().includes('minh') ||
+                            v.name.toLowerCase().includes('hùng')
+                        ) || viVoices[0];
                     }} else {{
-                        utter.voice = viVoices.find(v => v.name.includes('Female') || v.name.includes('Linh') || v.name.includes('Lan Nhi')) || viVoices[0];
+                        utter.voice = viVoices.find(v => 
+                            v.name.toLowerCase().includes('female') || 
+                            v.name.toLowerCase().includes('linh') || 
+                            v.name.toLowerCase().includes('nhi') ||
+                            v.name.toLowerCase().includes('hương')
+                        ) || viVoices[0];
                     }}
 
-                    utter.rate = 0.92;
                     synth.speak(utter);
 
                     utter.onend = () => {{
-                        setTimeout(nextSlide, 3500);
+                        setTimeout(nextSlide, 4000); // Đợi 4 giây sau khi đọc xong mới chuyển
                     }};
                 }}
 
@@ -307,13 +315,16 @@ def main(page: ft.Page):
 
                 document.getElementById('start-btn').onclick = () => {{
                     document.getElementById('start-overlay').style.display = 'none';
-                    bgMusic.volume = 0.25;
+                    bgMusic.volume = 0.08; // Giảm nhạc nền xuống mức rất nhỏ (8%)
                     bgMusic.play().catch(e => console.log(e));
                     speak(data[0]);
                 }};
 
                 init();
-                window.speechSynthesis.onvoiceschanged = () => {{}};
+                // Buộc nạp giọng nói ngay lập tức
+                window.speechSynthesis.onvoiceschanged = () => {{
+                    console.log("Danh sách giọng nói đã cập nhật");
+                }};
             </script>
         </body>
         </html>
@@ -325,9 +336,9 @@ def main(page: ft.Page):
             f.write(generate_html_content())
         try:
             subprocess.run(["git", "add", "."], check=True)
-            subprocess.run(["git", "commit", "-m", "Fixed dropdown error and thumbnail bar"], check=True)
+            subprocess.run(["git", "commit", "-m", "Optimized audio levels and voice switching"], check=True)
             subprocess.run(["git", "push", "origin", "main"], check=True)
-            page.snack_bar = ft.SnackBar(ft.Text("Đã sửa lỗi và cập nhật lên GitHub!"))
+            page.snack_bar = ft.SnackBar(ft.Text("Đã cập nhật âm lượng và giọng nói lên GitHub!"))
             page.snack_bar.open = True
         except Exception as ex:
             page.snack_bar = ft.SnackBar(ft.Text(f"Lỗi đồng bộ: {ex}"))
@@ -345,7 +356,7 @@ def main(page: ft.Page):
 
     page.add(
         ft.Column([
-            ft.Container(content=ft.Text("ANIMAL STUDIO - AUTO VOICE & MUSIC", size=35, weight="bold", color="orange"),
+            ft.Container(content=ft.Text("ANIMAL STUDIO - OPTIMIZED VOICE", size=35, weight="bold", color="orange"),
                          alignment=ALIGN_CENTER),
             ft.Row([bg_music_input], alignment=ft.MainAxisAlignment.CENTER),
             format_selector,

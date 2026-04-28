@@ -23,7 +23,6 @@
                 .des { font-size: 20px; color: #ddd; margin-bottom: 25px; line-height: 1.6; font-weight: 400; }
                 .note-box { font-family: 'Montserrat'; font-weight: 800; font-size: 32px; text-transform: uppercase; letter-spacing: 1px; }
 
-                /* THANH THUMBNAIL TỐI ƯU */
                 .thumbnails { 
                     position: absolute; 
                     bottom: 50px; 
@@ -48,7 +47,6 @@
 
                 #start-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 999; display: flex; align-items: center; justify-content: center; }
                 #start-btn { padding: 25px 60px; font-family: 'Montserrat'; font-size: 26px; font-weight: 900; background: orange; color: #000; border: none; border-radius: 50px; cursor: pointer; transition: 0.3s; }
-                #start-btn:hover { transform: scale(1.1); background: #fff; }
 
                 @keyframes showContent { from { opacity: 0; transform: translate(-30px, -50%); } to { opacity: 1; transform: translate(0, -50%); } }
             </style>
@@ -61,7 +59,7 @@
             <div class="thumbnails" id="thumb-bar"></div>
 
             <script>
-                const data = [{"img": "1.png", "title": "CON CH\u00d3 (DOG)", "desc": "\u2022 Kh\u1ee9u gi\u00e1c c\u1ef1c k\u1ef3 nh\u1ea1y b\u00e9n.", "note": "\u2022 B\u1ea1n th\u00e2n c\u1ee7a con ng\u01b0\u1eddi.", "voice": "Nam", "label": "Farm & Pets", "color": "#4CAF50"}, {"img": "2.png", "title": "CON M\u00c8O (CAT)", "desc": "\u2022 B\u1eadc th\u1ea7y th\u0103ng b\u1eb1ng.", "note": "\u2022 C\u00f3 th\u1ec3 nh\u1ea3y cao g\u1ea5p 6 l\u1ea7n c\u01a1 th\u1ec3.", "voice": "Nam", "label": "Farm & Pets", "color": "#00BCD4"}, {"img": "3.png", "title": "CON G\u00c0 (CHICKEN)", "desc": "\u2022 G\u00e0 tr\u1ed1ng g\u00e1y b\u00e1o th\u1ee9c.", "note": "\u2022 G\u00e0 m\u00e1i \u0111\u1ebb tr\u1ee9ng m\u1ed7i ng\u00e0y.", "voice": "Nam", "label": "Farm & Pets", "color": "#FFC107"}, {"img": "4.png", "title": "CON V\u1ecaT (DUCK)", "desc": "\u2022 L\u00f4ng kh\u00f4ng th\u1ea5m n\u01b0\u1edbc.", "note": "\u2022 B\u01a1i l\u1ed9i r\u1ea5t gi\u1ecfi.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#E0F7FA"}, {"img": "5.png", "title": "CON L\u1ee2N (PIG)", "desc": "\u2022 Th\u00edch t\u1eafm b\u00f9n \u0111\u1ec3 l\u00e0m m\u00e1t.", "note": "\u2022 R\u1ea5t th\u00f4ng minh.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#ffffff"}, {"img": "6.png", "title": "CON B\u00d2 (COW)", "desc": "\u2022 D\u00e0nh 8 ti\u1ebfng m\u1ed7i ng\u00e0y \u0111\u1ec3 nhai l\u1ea1i.", "note": "\u2022 D\u1ea1 d\u00e0y c\u00f3 4 ng\u0103n.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#4CAF50"}, {"img": "7.png", "title": "CON NG\u1ef0A (HORSE)", "desc": "\u2022 \u0110\u00f4i m\u1eaft l\u1edbn nh\u1ea5t tr\u00ean c\u1ea1n.", "note": "\u2022 \u0110\u00f4i m\u1eaft l\u1edbn nh\u1ea5t tr\u00ean c\u1ea1n.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#00BCD4"}, {"img": "8.png", "title": "CON C\u1eeaU (SHEEP)", "desc": "\u2022 C\u00f3 tr\u00ed nh\u1edb r\u1ea5t t\u1ed1t.", "note": "\u2022 Cung c\u1ea5p len \u1ea5m \u00e1p.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#FFC107"}, {"img": "9.png", "title": "CON TH\u1ece (RABBIT)", "desc": "\u2022 R\u0103ng kh\u00f4ng ng\u1eebng m\u1ecdc d\u00e0i.", "note": "\u2022 \u0110\u00f4i tai d\u00e0i th\u00ednh nh\u1ea1y.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#E0F7FA"}, {"img": "10.png", "title": "CON D\u00ca (GOAT)", "desc": "\u2022 Chuy\u00ean gia leo tr\u00e8o.", "note": "\u2022 \u0110\u1ed3ng t\u1eed m\u1eaft h\u00ecnh ch\u1eef nh\u1eadt.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#ffffff"}];
+                const data = [{"img": "1.png", "title": "CON CH\u00d3 (DOG)", "desc": "\u2022 Kh\u1ee9u gi\u00e1c c\u1ef1c k\u1ef3 nh\u1ea1y b\u00e9n.", "note": "\u2022 B\u1ea1n th\u00e2n c\u1ee7a con ng\u01b0\u1eddi.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#4CAF50"}, {"img": "2.png", "title": "CON M\u00c8O (CAT)", "desc": "\u2022 B\u1eadc th\u1ea7y th\u0103ng b\u1eb1ng.", "note": "\u2022 C\u00f3 th\u1ec3 nh\u1ea3y cao g\u1ea5p 6 l\u1ea7n c\u01a1 th\u1ec3.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#00BCD4"}, {"img": "3.png", "title": "CON G\u00c0 (CHICKEN)", "desc": "\u2022 G\u00e0 tr\u1ed1ng g\u00e1y b\u00e1o th\u1ee9c.", "note": "\u2022 G\u00e0 m\u00e1i \u0111\u1ebb tr\u1ee9ng m\u1ed7i ng\u00e0y.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#FFC107"}, {"img": "4.png", "title": "CON V\u1ecaT (DUCK)", "desc": "\u2022 L\u00f4ng kh\u00f4ng th\u1ea5m n\u01b0\u1edbc.", "note": "\u2022 B\u01a1i l\u1ed9i r\u1ea5t gi\u1ecfi.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#E0F7FA"}, {"img": "5.png", "title": "CON L\u1ee2N (PIG)", "desc": "\u2022 Th\u00edch t\u1eafm b\u00f9n \u0111\u1ec3 l\u00e0m m\u00e1t.", "note": "\u2022 R\u1ea5t th\u00f4ng minh.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#ffffff"}, {"img": "6.png", "title": "CON B\u00d2 (COW)", "desc": "\u2022 D\u00e0nh 8 ti\u1ebfng m\u1ed7i ng\u00e0y \u0111\u1ec3 nhai l\u1ea1i.", "note": "\u2022 D\u1ea1 d\u00e0y c\u00f3 4 ng\u0103n.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#4CAF50"}, {"img": "7.png", "title": "CON NG\u1ef0A (HORSE)", "desc": "\u2022 \u0110\u00f4i m\u1eaft l\u1edbn nh\u1ea5t tr\u00ean c\u1ea1n.", "note": "\u2022 \u0110\u00f4i m\u1eaft l\u1edbn nh\u1ea5t tr\u00ean c\u1ea1n.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#00BCD4"}, {"img": "8.png", "title": "CON C\u1eeaU (SHEEP)", "desc": "\u2022 C\u00f3 tr\u00ed nh\u1edb r\u1ea5t t\u1ed1t.", "note": "\u2022 Cung c\u1ea5p len \u1ea5m \u00e1p.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#FFC107"}, {"img": "9.png", "title": "CON TH\u1ece (RABBIT)", "desc": "\u2022 R\u0103ng kh\u00f4ng ng\u1eebng m\u1ecdc d\u00e0i.", "note": "\u2022 \u0110\u00f4i tai d\u00e0i th\u00ednh nh\u1ea1y.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#E0F7FA"}, {"img": "10.png", "title": "CON D\u00ca (GOAT)", "desc": "\u2022 Chuy\u00ean gia leo tr\u00e8o.", "note": "\u2022 \u0110\u1ed3ng t\u1eed m\u1eaft h\u00ecnh ch\u1eef nh\u1eadt.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#ffffff"}];
                 let currentIndex = 0;
                 const synth = window.speechSynthesis;
                 const bgMusic = document.getElementById('bg-music');
@@ -94,20 +92,33 @@
                     const textToRead = `${item.title}. ${item.desc}. ${item.note}`;
                     const utter = new SpeechSynthesisUtterance(textToRead);
                     utter.lang = 'vi-VN';
+                    utter.volume = 1.0; // Đặt âm lượng giọng đọc lớn nhất
+                    utter.rate = 0.88;  // Đọc chậm hơn để bé dễ nghe
+
                     const voices = synth.getVoices();
                     const viVoices = voices.filter(v => v.lang.includes('vi'));
 
+                    // Logic lọc giọng thông minh hơn
                     if (item.voice === 'Nam') {
-                        utter.voice = viVoices.find(v => v.name.includes('Male') || v.name.includes('An') || v.name.includes('Lê Minh')) || viVoices[0];
+                        utter.voice = viVoices.find(v => 
+                            v.name.toLowerCase().includes('male') || 
+                            v.name.toLowerCase().includes('an') || 
+                            v.name.toLowerCase().includes('minh') ||
+                            v.name.toLowerCase().includes('hùng')
+                        ) || viVoices[0];
                     } else {
-                        utter.voice = viVoices.find(v => v.name.includes('Female') || v.name.includes('Linh') || v.name.includes('Lan Nhi')) || viVoices[0];
+                        utter.voice = viVoices.find(v => 
+                            v.name.toLowerCase().includes('female') || 
+                            v.name.toLowerCase().includes('linh') || 
+                            v.name.toLowerCase().includes('nhi') ||
+                            v.name.toLowerCase().includes('hương')
+                        ) || viVoices[0];
                     }
 
-                    utter.rate = 0.92;
                     synth.speak(utter);
 
                     utter.onend = () => {
-                        setTimeout(nextSlide, 3500);
+                        setTimeout(nextSlide, 4000); // Đợi 4 giây sau khi đọc xong mới chuyển
                     };
                 }
 
@@ -128,13 +139,16 @@
 
                 document.getElementById('start-btn').onclick = () => {
                     document.getElementById('start-overlay').style.display = 'none';
-                    bgMusic.volume = 0.25;
+                    bgMusic.volume = 0.08; // Giảm nhạc nền xuống mức rất nhỏ (8%)
                     bgMusic.play().catch(e => console.log(e));
                     speak(data[0]);
                 };
 
                 init();
-                window.speechSynthesis.onvoiceschanged = () => {};
+                // Buộc nạp giọng nói ngay lập tức
+                window.speechSynthesis.onvoiceschanged = () => {
+                    console.log("Danh sách giọng nói đã cập nhật");
+                };
             </script>
         </body>
         </html>
