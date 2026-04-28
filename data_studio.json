@@ -3,66 +3,82 @@
     "rows": [
         {
             "img": "1.png",
-            "title": "Con Chó (Dog)",
-            "desc": "",
-            "note": "\"Chó là người bạn trung thành nhất. Chúng có khứu giác nhạy gấp 10.000 lần con người.\"",
+            "title": "CON CHÓ (DOG)",
+            "desc": "• Khứu giác cực kỳ nhạy bén.",
+            "note": "• Bạn thân của con người.",
             "theme": "Rừng",
             "label": "Farm & Pets"
         },
         {
             "img": "2.png",
-            "title": "Con Mèo (Cat)",
-            "desc": "",
-            "note": "\"Mèo là bậc thầy thăng bằng. Chúng có thể nhảy cao gấp 6 lần chiều dài cơ thể mình.\"",
+            "title": "CON MÈO (CAT)",
+            "desc": "• Bậc thầy thăng bằng.",
+            "note": "• Có thể nhảy cao gấp 6 lần cơ thể.",
             "theme": "Biển",
             "label": "Farm & Pets"
         },
         {
             "img": "3.png",
-            "title": "Con Gà (Chicken)",
-            "desc": "",
-            "note": "\"Gà trống gáy để báo thức. Gà mái có thể đẻ tới 300 quả trứng mỗi năm.\"",
+            "title": "CON GÀ (CHICKEN)",
+            "desc": "• Gà trống gáy báo thức.",
+            "note": "• Gà mái đẻ trứng mỗi ngày.",
             "theme": "Sa mạc",
             "label": "Farm & Pets"
         },
         {
             "img": "4.png",
-            "title": "Con Vịt (Duck)",
-            "desc": "",
-            "note": "\"Bộ lông của vịt không hề bị thấm nước, giúp chúng luôn khô ráo khi bơi lội.\"",
+            "title": "CON VỊT (DUCK)",
+            "desc": "• Lông không thấm nước.",
+            "note": "• Bơi lội rất giỏi.",
             "theme": "Tuyết",
             "label": "Farm & Pets"
         },
         {
             "img": "5.png",
-            "title": "Con Lợn (Pig)",
-            "desc": "",
-            "note": "\"Lợn là loài vật rất thông minh. Chúng thích đắm mình trong bùn để làm mát da.\"",
+            "title": "CON LỢN (PIG)",
+            "desc": "• Thích tắm bùn để làm mát.",
+            "note": "• Rất thông minh.",
             "theme": "Núi lửa",
             "label": "Farm & Pets"
         },
         {
-            "img": "",
-            "title": "",
-            "desc": "",
-            "note": "",
+            "img": "6.png",
+            "title": "CON BÒ (COW)",
+            "desc": "• Dành 8 tiếng mỗi ngày để nhai lại.",
+            "note": "• Dạ dày có 4 ngăn.",
             "theme": "Rừng",
             "label": "Farm & Pets"
         },
         {
-            "img": "",
-            "title": "",
-            "desc": "",
-            "note": "",
-            "theme": "Rừng",
+            "img": "7.png",
+            "title": "CON NGỰA (HORSE)",
+            "desc": "• Đôi mắt lớn nhất trên cạn.",
+            "note": "• Đôi mắt lớn nhất trên cạn.",
+            "theme": "Biển",
             "label": "Farm & Pets"
         },
         {
-            "img": "",
-            "title": "",
-            "desc": "",
-            "note": "",
-            "theme": "Rừng",
+            "img": "8.png",
+            "title": "CON CỪU (SHEEP)",
+            "desc": "• Có trí nhớ rất tốt.",
+            "note": "• Cung cấp len ấm áp.",
+            "theme": "Sa mạc",
+            "label": "Farm & Pets"
+        },
+        {
+            "img": "9.png",
+            "title": "CON THỎ (RABBIT)",
+            "desc": "• Răng không ngừng mọc dài.",
+            "note": "• Đôi tai dài thính nhạy.",
+            "theme": "Tuyết",
+            "label": "Farm & Pets"
+        },
+        {
+            "img": "10.png",
+            "title": "CON DÊ (GOAT)",
+            "desc": "• Chuyên gia leo trèo.",
+            "note": "• Đồng tử mắt hình chữ nhật.",
+            "theme": "Núi lửa",
             "label": "Farm & Pets"
         }
     ]
