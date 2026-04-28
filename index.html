@@ -6,251 +6,136 @@
             <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
             <style>
                 body { margin: 0; background: #000; font-family: 'Open Sans', sans-serif; overflow: hidden; }
-                
-            .container { width: 100vw; height: 100vh;  position: relative; overflow: hidden; }
+                .container { width: 100vw; height: 100vh;  position: relative; }
+                .item { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; transition: 0.8s; display: none; }
+                .item.active { display: block; }
+                .overlay { position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to right, rgba(0,0,0,0.85), transparent, rgba(0,0,0,0.85)); z-index: 5; }
 
-            .slide .item { 
-                position: absolute; transform: translate(0, -50%); border-radius: 12px; 
-                background-size: cover; background-position: center; transition: 0.8s; 
-                box-shadow: 0 20px 40px rgba(0,0,0,0.85);
-                width: 110px; height: 165px; top: 88%;
-                z-index: 10;
-            }
+                .content { 
+                    position: absolute; top: 50%; left: 80px; transform: translateY(-50%); 
+                    color: #fff; z-index: 100; width: 750px; padding: 40px;
+                    border-radius: 25px; background: rgba(0,0,0,0.4); backdrop-filter: blur(15px);
+                    border: 1px solid rgba(255,255,255,0.15); display: none;
+                }
+                .item.active .content { display: block; animation: showContent 0.8s ease-out forwards; }
 
-            /* Child 1 & 2 làm nền Fullscreen */
-            .slide .item:nth-child(1), .slide .item:nth-child(2) { 
-                top:0; left:0; transform:translate(0,0); border-radius:0; width:100%; height:100%; z-index: 1;
-            }
+                .name { font-family: 'Montserrat'; font-size: 80px; font-weight: 900; text-transform: uppercase; line-height: 1.1; margin-bottom: 20px; text-shadow: 5px 5px 20px #000; }
+                .des { font-size: 20px; color: #ddd; margin-bottom: 25px; line-height: 1.6; font-weight: 400; }
+                .note-box { font-family: 'Montserrat'; font-weight: 800; font-size: 32px; text-transform: uppercase; letter-spacing: 1px; }
 
-            /* Thumbnail bắt đầu dàn từ giữa màn hình sang phải */
-            .slide .item:nth-child(3) { left: 55%; }
-            .slide .item:nth-child(4) { left: calc(55% + 130px); }
-            .slide .item:nth-child(5) { left: calc(55% + 130px * 2); }
-            .slide .item:nth-child(6) { left: calc(55% + 130px * 3); }
-            .slide .item:nth-child(7) { left: calc(55% + 130px * 4); }
-            .slide .item:nth-child(8) { left: calc(55% + 130px * 5); }
-            .slide .item:nth-child(9) { left: calc(55% + 130px * 6); }
-            .slide .item:nth-child(10) { left: calc(55% + 130px * 7); }
-            .slide .item:nth-child(n+11) { opacity: 0; left: calc(55% + 130px * 8); }
+                /* THANH THUMBNAIL TỐI ƯU */
+                .thumbnails { 
+                    position: absolute; 
+                    bottom: 50px; 
+                    right: 50px; 
+                    display: flex; 
+                    gap: 15px; 
+                    z-index: 110; 
+                    justify-content: flex-end;
+                    align-items: flex-end;
+                }
+                .thumb { 
+                    width: 120px; 
+                    height: 180px; 
+                    border-radius: 15px; 
+                    background-size: cover; 
+                    background-position: center; 
+                    border: 2px solid rgba(255,255,255,0.2); 
+                    transition: 0.5s; 
+                    opacity: 0.5; 
+                }
+                .thumb.active { opacity: 1; border-color: orange; transform: scale(1.05); box-shadow: 0 0 20px rgba(255,165,0,0.5); }
 
-            .content { 
-                position: absolute; top: 50%; left: 80px; transform: translateY(-50%); 
-                color: #fff; z-index: 100; width: 700px; padding: 35px;
-                border-radius: 20px; background: rgba(0,0,0,0.4); backdrop-filter: blur(15px);
-                border: 1px solid rgba(255,255,255,0.15); display: none;
-            }
-            .slide .item:nth-child(2) .content { display: block; animation: showContent 0.8s ease-out 1 forwards; }
+                #start-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 999; display: flex; align-items: center; justify-content: center; }
+                #start-btn { padding: 25px 60px; font-family: 'Montserrat'; font-size: 26px; font-weight: 900; background: orange; color: #000; border: none; border-radius: 50px; cursor: pointer; transition: 0.3s; }
+                #start-btn:hover { transform: scale(1.1); background: #fff; }
 
-            .name { font-family: 'Montserrat'; font-size: 80px; font-weight: 900; text-transform: uppercase; padding-left: 20px; line-height: 1.1; text-shadow: 4px 4px 15px rgba(0,0,0,1); }
-            .des { font-size: 20px; margin: 20px 0; line-height: 1.5; color: #eee; font-weight: 400; }
-            .note-box { font-family: 'Montserrat'; font-weight: 800; font-size: 30px; text-transform: uppercase; letter-spacing: 1px; }
-            .tag { display: inline-block; padding: 5px 15px; border-radius: 5px; color: #000; font-weight: 800; margin-bottom: 20px; text-transform: uppercase; font-size: 14px; }
-
-            @keyframes showContent { from { opacity: 0; transform: translate(0, 50px); filter: blur(20px); } to { opacity: 1; transform: translate(0, 0); filter: blur(0); } }
-        
-                .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.85) 100%); z-index: 5; }
-                .controls { position: absolute; bottom: 35px; width: 100%; text-align: center; z-index: 110; }
-                .controls button { width: 60px; height: 60px; border-radius: 50%; border: 2px solid #fff; background: rgba(0,0,0,0.5); color: #fff; font-size: 22px; cursor: pointer; margin: 0 12px; transition: 0.3s; }
-                .controls button:hover { background: orange; color: #000; border-color: orange; transform: scale(1.1); }
+                @keyframes showContent { from { opacity: 0; transform: translate(-30px, -50%); } to { opacity: 1; transform: translate(0, -50%); } }
             </style>
         </head>
         <body>
-            <div class="container">
-                <div class="slide">
-                <div class="item" style="background-image: url('assets/1.png');">
-                    <div class="overlay"></div>
-                    <div class="content">
-                        <div class="tag" style="background:#4CAF50">Farm & Pets</div>
-                        <div class="name" style="border-left:10px solid #4CAF50">CON CHÓ (DOG)</div>
-                        <div class="des">• Khứu giác cực kỳ nhạy bén.</div>
-                        <div class="note-box" style="color:#4CAF50; text-shadow: 0 0 10px #4CAF50;">• Bạn thân của con người.</div>
-                    </div>
-                </div>
-                <div class="item" style="background-image: url('assets/2.png');">
-                    <div class="overlay"></div>
-                    <div class="content">
-                        <div class="tag" style="background:#00BCD4">Farm & Pets</div>
-                        <div class="name" style="border-left:10px solid #00BCD4">CON MÈO (CAT)</div>
-                        <div class="des">• Bậc thầy thăng bằng.</div>
-                        <div class="note-box" style="color:#00BCD4; text-shadow: 0 0 10px #00BCD4;">• Có thể nhảy cao gấp 6 lần cơ thể.</div>
-                    </div>
-                </div>
-                <div class="item" style="background-image: url('assets/3.png');">
-                    <div class="overlay"></div>
-                    <div class="content">
-                        <div class="tag" style="background:#FFC107">Farm & Pets</div>
-                        <div class="name" style="border-left:10px solid #FFC107">CON GÀ (CHICKEN)</div>
-                        <div class="des">• Gà trống gáy báo thức.</div>
-                        <div class="note-box" style="color:#FFC107; text-shadow: 0 0 10px #FFC107;">• Gà mái đẻ trứng mỗi ngày.</div>
-                    </div>
-                </div>
-                <div class="item" style="background-image: url('assets/4.png');">
-                    <div class="overlay"></div>
-                    <div class="content">
-                        <div class="tag" style="background:#E0F7FA">Farm & Pets</div>
-                        <div class="name" style="border-left:10px solid #E0F7FA">CON VỊT (DUCK)</div>
-                        <div class="des">• Lông không thấm nước.</div>
-                        <div class="note-box" style="color:#E0F7FA; text-shadow: 0 0 10px #E0F7FA;">• Bơi lội rất giỏi.</div>
-                    </div>
-                </div>
-                <div class="item" style="background-image: url('assets/5.png');">
-                    <div class="overlay"></div>
-                    <div class="content">
-                        <div class="tag" style="background:#FF5722">Farm & Pets</div>
-                        <div class="name" style="border-left:10px solid #FF5722">CON LỢN (PIG)</div>
-                        <div class="des">• Thích tắm bùn để làm mát.</div>
-                        <div class="note-box" style="color:#FF5722; text-shadow: 0 0 10px #FF5722;">• Rất thông minh.</div>
-                    </div>
-                </div>
-                <div class="item" style="background-image: url('assets/6.png');">
-                    <div class="overlay"></div>
-                    <div class="content">
-                        <div class="tag" style="background:#4CAF50">Farm & Pets</div>
-                        <div class="name" style="border-left:10px solid #4CAF50">CON BÒ (COW)</div>
-                        <div class="des">• Dành 8 tiếng mỗi ngày để nhai lại.</div>
-                        <div class="note-box" style="color:#4CAF50; text-shadow: 0 0 10px #4CAF50;">• Dạ dày có 4 ngăn.</div>
-                    </div>
-                </div>
-                <div class="item" style="background-image: url('assets/7.png');">
-                    <div class="overlay"></div>
-                    <div class="content">
-                        <div class="tag" style="background:#00BCD4">Farm & Pets</div>
-                        <div class="name" style="border-left:10px solid #00BCD4">CON NGỰA (HORSE)</div>
-                        <div class="des">• Đôi mắt lớn nhất trên cạn.</div>
-                        <div class="note-box" style="color:#00BCD4; text-shadow: 0 0 10px #00BCD4;">• Đôi mắt lớn nhất trên cạn.</div>
-                    </div>
-                </div>
-                <div class="item" style="background-image: url('assets/8.png');">
-                    <div class="overlay"></div>
-                    <div class="content">
-                        <div class="tag" style="background:#FFC107">Farm & Pets</div>
-                        <div class="name" style="border-left:10px solid #FFC107">CON CỪU (SHEEP)</div>
-                        <div class="des">• Có trí nhớ rất tốt.</div>
-                        <div class="note-box" style="color:#FFC107; text-shadow: 0 0 10px #FFC107;">• Cung cấp len ấm áp.</div>
-                    </div>
-                </div>
-                <div class="item" style="background-image: url('assets/9.png');">
-                    <div class="overlay"></div>
-                    <div class="content">
-                        <div class="tag" style="background:#E0F7FA">Farm & Pets</div>
-                        <div class="name" style="border-left:10px solid #E0F7FA">CON THỎ (RABBIT)</div>
-                        <div class="des">• Răng không ngừng mọc dài.</div>
-                        <div class="note-box" style="color:#E0F7FA; text-shadow: 0 0 10px #E0F7FA;">• Đôi tai dài thính nhạy.</div>
-                    </div>
-                </div>
-                <div class="item" style="background-image: url('assets/10.png');">
-                    <div class="overlay"></div>
-                    <div class="content">
-                        <div class="tag" style="background:#FF5722">Farm & Pets</div>
-                        <div class="name" style="border-left:10px solid #FF5722">CON DÊ (GOAT)</div>
-                        <div class="des">• Chuyên gia leo trèo.</div>
-                        <div class="note-box" style="color:#FF5722; text-shadow: 0 0 10px #FF5722;">• Đồng tử mắt hình chữ nhật.</div>
-                    </div>
-                </div>
-                <div class="item" style="background-image: url('assets/1.png');">
-                    <div class="overlay"></div>
-                    <div class="content">
-                        <div class="tag" style="background:#4CAF50">Farm & Pets</div>
-                        <div class="name" style="border-left:10px solid #4CAF50">CON CHÓ (DOG)</div>
-                        <div class="des">• Khứu giác cực kỳ nhạy bén.</div>
-                        <div class="note-box" style="color:#4CAF50; text-shadow: 0 0 10px #4CAF50;">• Bạn thân của con người.</div>
-                    </div>
-                </div>
-                <div class="item" style="background-image: url('assets/2.png');">
-                    <div class="overlay"></div>
-                    <div class="content">
-                        <div class="tag" style="background:#00BCD4">Farm & Pets</div>
-                        <div class="name" style="border-left:10px solid #00BCD4">CON MÈO (CAT)</div>
-                        <div class="des">• Bậc thầy thăng bằng.</div>
-                        <div class="note-box" style="color:#00BCD4; text-shadow: 0 0 10px #00BCD4;">• Có thể nhảy cao gấp 6 lần cơ thể.</div>
-                    </div>
-                </div>
-                <div class="item" style="background-image: url('assets/3.png');">
-                    <div class="overlay"></div>
-                    <div class="content">
-                        <div class="tag" style="background:#FFC107">Farm & Pets</div>
-                        <div class="name" style="border-left:10px solid #FFC107">CON GÀ (CHICKEN)</div>
-                        <div class="des">• Gà trống gáy báo thức.</div>
-                        <div class="note-box" style="color:#FFC107; text-shadow: 0 0 10px #FFC107;">• Gà mái đẻ trứng mỗi ngày.</div>
-                    </div>
-                </div>
-                <div class="item" style="background-image: url('assets/4.png');">
-                    <div class="overlay"></div>
-                    <div class="content">
-                        <div class="tag" style="background:#E0F7FA">Farm & Pets</div>
-                        <div class="name" style="border-left:10px solid #E0F7FA">CON VỊT (DUCK)</div>
-                        <div class="des">• Lông không thấm nước.</div>
-                        <div class="note-box" style="color:#E0F7FA; text-shadow: 0 0 10px #E0F7FA;">• Bơi lội rất giỏi.</div>
-                    </div>
-                </div>
-                <div class="item" style="background-image: url('assets/5.png');">
-                    <div class="overlay"></div>
-                    <div class="content">
-                        <div class="tag" style="background:#FF5722">Farm & Pets</div>
-                        <div class="name" style="border-left:10px solid #FF5722">CON LỢN (PIG)</div>
-                        <div class="des">• Thích tắm bùn để làm mát.</div>
-                        <div class="note-box" style="color:#FF5722; text-shadow: 0 0 10px #FF5722;">• Rất thông minh.</div>
-                    </div>
-                </div>
-                <div class="item" style="background-image: url('assets/6.png');">
-                    <div class="overlay"></div>
-                    <div class="content">
-                        <div class="tag" style="background:#4CAF50">Farm & Pets</div>
-                        <div class="name" style="border-left:10px solid #4CAF50">CON BÒ (COW)</div>
-                        <div class="des">• Dành 8 tiếng mỗi ngày để nhai lại.</div>
-                        <div class="note-box" style="color:#4CAF50; text-shadow: 0 0 10px #4CAF50;">• Dạ dày có 4 ngăn.</div>
-                    </div>
-                </div>
-                <div class="item" style="background-image: url('assets/7.png');">
-                    <div class="overlay"></div>
-                    <div class="content">
-                        <div class="tag" style="background:#00BCD4">Farm & Pets</div>
-                        <div class="name" style="border-left:10px solid #00BCD4">CON NGỰA (HORSE)</div>
-                        <div class="des">• Đôi mắt lớn nhất trên cạn.</div>
-                        <div class="note-box" style="color:#00BCD4; text-shadow: 0 0 10px #00BCD4;">• Đôi mắt lớn nhất trên cạn.</div>
-                    </div>
-                </div>
-                <div class="item" style="background-image: url('assets/8.png');">
-                    <div class="overlay"></div>
-                    <div class="content">
-                        <div class="tag" style="background:#FFC107">Farm & Pets</div>
-                        <div class="name" style="border-left:10px solid #FFC107">CON CỪU (SHEEP)</div>
-                        <div class="des">• Có trí nhớ rất tốt.</div>
-                        <div class="note-box" style="color:#FFC107; text-shadow: 0 0 10px #FFC107;">• Cung cấp len ấm áp.</div>
-                    </div>
-                </div>
-                <div class="item" style="background-image: url('assets/9.png');">
-                    <div class="overlay"></div>
-                    <div class="content">
-                        <div class="tag" style="background:#E0F7FA">Farm & Pets</div>
-                        <div class="name" style="border-left:10px solid #E0F7FA">CON THỎ (RABBIT)</div>
-                        <div class="des">• Răng không ngừng mọc dài.</div>
-                        <div class="note-box" style="color:#E0F7FA; text-shadow: 0 0 10px #E0F7FA;">• Đôi tai dài thính nhạy.</div>
-                    </div>
-                </div>
-                <div class="item" style="background-image: url('assets/10.png');">
-                    <div class="overlay"></div>
-                    <div class="content">
-                        <div class="tag" style="background:#FF5722">Farm & Pets</div>
-                        <div class="name" style="border-left:10px solid #FF5722">CON DÊ (GOAT)</div>
-                        <div class="des">• Chuyên gia leo trèo.</div>
-                        <div class="note-box" style="color:#FF5722; text-shadow: 0 0 10px #FF5722;">• Đồng tử mắt hình chữ nhật.</div>
-                    </div>
-                </div></div>
-                <div class="controls">
-                    <button class="prev">❮</button>
-                    <button class="next">❯</button>
-                </div>
-            </div>
+            <div id="start-overlay"><button id="start-btn">BẮT ĐẦU TRẢI NGHIỆM</button></div>
+            <audio id="bg-music" loop src="assets/Splashing Around - The Green Orbs.mp3"></audio>
+
+            <div class="container" id="main-slide"></div>
+            <div class="thumbnails" id="thumb-bar"></div>
+
             <script>
-                document.querySelector('.next').onclick = () => {
-                    let items = document.querySelectorAll('.item');
-                    if(items.length > 1) document.querySelector('.slide').appendChild(items[0]);
+                const data = [{"img": "1.png", "title": "CON CH\u00d3 (DOG)", "desc": "\u2022 Kh\u1ee9u gi\u00e1c c\u1ef1c k\u1ef3 nh\u1ea1y b\u00e9n.", "note": "\u2022 B\u1ea1n th\u00e2n c\u1ee7a con ng\u01b0\u1eddi.", "voice": "Nam", "label": "Farm & Pets", "color": "#4CAF50"}, {"img": "2.png", "title": "CON M\u00c8O (CAT)", "desc": "\u2022 B\u1eadc th\u1ea7y th\u0103ng b\u1eb1ng.", "note": "\u2022 C\u00f3 th\u1ec3 nh\u1ea3y cao g\u1ea5p 6 l\u1ea7n c\u01a1 th\u1ec3.", "voice": "Nam", "label": "Farm & Pets", "color": "#00BCD4"}, {"img": "3.png", "title": "CON G\u00c0 (CHICKEN)", "desc": "\u2022 G\u00e0 tr\u1ed1ng g\u00e1y b\u00e1o th\u1ee9c.", "note": "\u2022 G\u00e0 m\u00e1i \u0111\u1ebb tr\u1ee9ng m\u1ed7i ng\u00e0y.", "voice": "Nam", "label": "Farm & Pets", "color": "#FFC107"}, {"img": "4.png", "title": "CON V\u1ecaT (DUCK)", "desc": "\u2022 L\u00f4ng kh\u00f4ng th\u1ea5m n\u01b0\u1edbc.", "note": "\u2022 B\u01a1i l\u1ed9i r\u1ea5t gi\u1ecfi.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#E0F7FA"}, {"img": "5.png", "title": "CON L\u1ee2N (PIG)", "desc": "\u2022 Th\u00edch t\u1eafm b\u00f9n \u0111\u1ec3 l\u00e0m m\u00e1t.", "note": "\u2022 R\u1ea5t th\u00f4ng minh.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#ffffff"}, {"img": "6.png", "title": "CON B\u00d2 (COW)", "desc": "\u2022 D\u00e0nh 8 ti\u1ebfng m\u1ed7i ng\u00e0y \u0111\u1ec3 nhai l\u1ea1i.", "note": "\u2022 D\u1ea1 d\u00e0y c\u00f3 4 ng\u0103n.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#4CAF50"}, {"img": "7.png", "title": "CON NG\u1ef0A (HORSE)", "desc": "\u2022 \u0110\u00f4i m\u1eaft l\u1edbn nh\u1ea5t tr\u00ean c\u1ea1n.", "note": "\u2022 \u0110\u00f4i m\u1eaft l\u1edbn nh\u1ea5t tr\u00ean c\u1ea1n.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#00BCD4"}, {"img": "8.png", "title": "CON C\u1eeaU (SHEEP)", "desc": "\u2022 C\u00f3 tr\u00ed nh\u1edb r\u1ea5t t\u1ed1t.", "note": "\u2022 Cung c\u1ea5p len \u1ea5m \u00e1p.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#FFC107"}, {"img": "9.png", "title": "CON TH\u1ece (RABBIT)", "desc": "\u2022 R\u0103ng kh\u00f4ng ng\u1eebng m\u1ecdc d\u00e0i.", "note": "\u2022 \u0110\u00f4i tai d\u00e0i th\u00ednh nh\u1ea1y.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#E0F7FA"}, {"img": "10.png", "title": "CON D\u00ca (GOAT)", "desc": "\u2022 Chuy\u00ean gia leo tr\u00e8o.", "note": "\u2022 \u0110\u1ed3ng t\u1eed m\u1eaft h\u00ecnh ch\u1eef nh\u1eadt.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#ffffff"}];
+                let currentIndex = 0;
+                const synth = window.speechSynthesis;
+                const bgMusic = document.getElementById('bg-music');
+
+                function init() {
+                    const slideCont = document.getElementById('main-slide');
+                    const thumbCont = document.getElementById('thumb-bar');
+                    data.forEach((item, i) => {
+                        const slide = document.createElement('div');
+                        slide.className = `item ${i===0?'active':''}`;
+                        slide.style.backgroundImage = `url('assets/${item.img}')`;
+                        slide.innerHTML = `
+                            <div class="overlay"></div>
+                            <div class="content">
+                                <div class="name" style="border-left: 12px solid ${item.color}; padding-left: 25px;">${item.title}</div>
+                                <div class="des">${item.desc}</div>
+                                <div class="note-box" style="color: ${item.color}; text-shadow: 0 0 15px ${item.color}80;">${item.note}</div>
+                            </div>`;
+                        slideCont.appendChild(slide);
+
+                        const thumb = document.createElement('div');
+                        thumb.className = `thumb ${i===0?'active':''}`;
+                        thumb.style.backgroundImage = `url('assets/${item.img}')`;
+                        thumbCont.appendChild(thumb);
+                    });
                 }
-                document.querySelector('.prev').onclick = () => {
-                    let items = document.querySelectorAll('.item');
-                    if(items.length > 1) document.querySelector('.slide').prepend(items[items.length - 1]);
+
+                function speak(item) {
+                    synth.cancel();
+                    const textToRead = `${item.title}. ${item.desc}. ${item.note}`;
+                    const utter = new SpeechSynthesisUtterance(textToRead);
+                    utter.lang = 'vi-VN';
+                    const voices = synth.getVoices();
+                    const viVoices = voices.filter(v => v.lang.includes('vi'));
+
+                    if (item.voice === 'Nam') {
+                        utter.voice = viVoices.find(v => v.name.includes('Male') || v.name.includes('An') || v.name.includes('Lê Minh')) || viVoices[0];
+                    } else {
+                        utter.voice = viVoices.find(v => v.name.includes('Female') || v.name.includes('Linh') || v.name.includes('Lan Nhi')) || viVoices[0];
+                    }
+
+                    utter.rate = 0.92;
+                    synth.speak(utter);
+
+                    utter.onend = () => {
+                        setTimeout(nextSlide, 3500);
+                    };
                 }
+
+                function nextSlide() {
+                    const slides = document.querySelectorAll('.item');
+                    const thumbs = document.querySelectorAll('.thumb');
+                    if (slides.length <= 1) return;
+
+                    slides[currentIndex].classList.remove('active');
+                    thumbs[currentIndex].classList.remove('active');
+
+                    currentIndex = (currentIndex + 1) % data.length;
+
+                    slides[currentIndex].classList.add('active');
+                    thumbs[currentIndex].classList.add('active');
+                    speak(data[currentIndex]);
+                }
+
+                document.getElementById('start-btn').onclick = () => {
+                    document.getElementById('start-overlay').style.display = 'none';
+                    bgMusic.volume = 0.25;
+                    bgMusic.play().catch(e => console.log(e));
+                    speak(data[0]);
+                };
+
+                init();
+                window.speechSynthesis.onvoiceschanged = () => {};
             </script>
         </body>
         </html>
+        

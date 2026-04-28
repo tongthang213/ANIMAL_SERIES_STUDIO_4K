@@ -1,11 +1,13 @@
 {
     "format": "horizontal",
+    "bg_music": "Splashing Around - The Green Orbs.mp3",
     "rows": [
         {
             "img": "1.png",
             "title": "CON CHÓ (DOG)",
             "desc": "• Khứu giác cực kỳ nhạy bén.",
             "note": "• Bạn thân của con người.",
+            "voice": "Nam",
             "theme": "Rừng",
             "label": "Farm & Pets"
         },
@@ -14,6 +16,7 @@
             "title": "CON MÈO (CAT)",
             "desc": "• Bậc thầy thăng bằng.",
             "note": "• Có thể nhảy cao gấp 6 lần cơ thể.",
+            "voice": "Nam",
             "theme": "Biển",
             "label": "Farm & Pets"
         },
@@ -22,6 +25,7 @@
             "title": "CON GÀ (CHICKEN)",
             "desc": "• Gà trống gáy báo thức.",
             "note": "• Gà mái đẻ trứng mỗi ngày.",
+            "voice": "Nam",
             "theme": "Sa mạc",
             "label": "Farm & Pets"
         },
@@ -30,6 +34,7 @@
             "title": "CON VỊT (DUCK)",
             "desc": "• Lông không thấm nước.",
             "note": "• Bơi lội rất giỏi.",
+            "voice": "Nữ",
             "theme": "Tuyết",
             "label": "Farm & Pets"
         },
@@ -38,6 +43,7 @@
             "title": "CON LỢN (PIG)",
             "desc": "• Thích tắm bùn để làm mát.",
             "note": "• Rất thông minh.",
+            "voice": "Nữ",
             "theme": "Núi lửa",
             "label": "Farm & Pets"
         },
@@ -46,6 +52,7 @@
             "title": "CON BÒ (COW)",
             "desc": "• Dành 8 tiếng mỗi ngày để nhai lại.",
             "note": "• Dạ dày có 4 ngăn.",
+            "voice": "Nữ",
             "theme": "Rừng",
             "label": "Farm & Pets"
         },
@@ -54,6 +61,7 @@
             "title": "CON NGỰA (HORSE)",
             "desc": "• Đôi mắt lớn nhất trên cạn.",
             "note": "• Đôi mắt lớn nhất trên cạn.",
+            "voice": "Nữ",
             "theme": "Biển",
             "label": "Farm & Pets"
         },
@@ -62,6 +70,7 @@
             "title": "CON CỪU (SHEEP)",
             "desc": "• Có trí nhớ rất tốt.",
             "note": "• Cung cấp len ấm áp.",
+            "voice": "Nữ",
             "theme": "Sa mạc",
             "label": "Farm & Pets"
         },
@@ -70,6 +79,7 @@
             "title": "CON THỎ (RABBIT)",
             "desc": "• Răng không ngừng mọc dài.",
             "note": "• Đôi tai dài thính nhạy.",
+            "voice": "Nữ",
             "theme": "Tuyết",
             "label": "Farm & Pets"
         },
@@ -78,6 +88,7 @@
             "title": "CON DÊ (GOAT)",
             "desc": "• Chuyên gia leo trèo.",
             "note": "• Đồng tử mắt hình chữ nhật.",
+            "voice": "Nữ",
             "theme": "Núi lửa",
             "label": "Farm & Pets"
         }
