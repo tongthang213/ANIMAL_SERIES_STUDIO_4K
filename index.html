@@ -1,14 +1,18 @@
 
         <!DOCTYPE html>
-        <html>
+        <html lang="vi">
         <head>
             <meta charset="UTF-8">
             <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
             <style>
                 body { margin: 0; background: #000; font-family: 'Open Sans', sans-serif; overflow: hidden; }
                 .container { width: 100vw; height: 100vh;  position: relative; }
-                .item { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; transition: 0.8s; display: none; }
+                .item { position: absolute; width: 100%; height: 100%; display: none; }
                 .item.active { display: block; }
+
+                .media-layer { width: 100%; height: 100%; object-fit: cover; position: absolute; transition: opacity 1s; opacity: 0; }
+                .media-layer.visible { opacity: 1; }
+
                 .overlay { position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to right, rgba(0,0,0,0.85), transparent, rgba(0,0,0,0.85)); z-index: 5; }
 
                 .content { 
@@ -19,34 +23,39 @@
                 }
                 .item.active .content { display: block; animation: showContent 0.8s ease-out forwards; }
 
-                .name { font-family: 'Montserrat'; font-size: 80px; font-weight: 900; text-transform: uppercase; line-height: 1.1; margin-bottom: 20px; text-shadow: 5px 5px 20px #000; }
-                .des { font-size: 20px; color: #ddd; margin-bottom: 25px; line-height: 1.6; font-weight: 400; }
+                .name { font-family: 'Montserrat'; font-size: 80px; font-weight: 900; text-transform: uppercase; line-height: 1.1; margin-bottom: 20px; text-shadow: 4px 4px 15px #000; }
+                .des { font-size: 22px; color: #eee; margin-bottom: 25px; line-height: 1.6; font-weight: 400; }
                 .note-box { font-family: 'Montserrat'; font-weight: 800; font-size: 32px; text-transform: uppercase; letter-spacing: 1px; }
 
+                /* THANH THUMBNAIL */
                 .thumbnails { 
-                    position: absolute; 
-                    bottom: 50px; 
-                    right: 50px; 
-                    display: flex; 
-                    gap: 15px; 
-                    z-index: 110; 
-                    justify-content: flex-end;
-                    align-items: flex-end;
+                    position: absolute; bottom: 40px; right: 40px; 
+                    display: flex; gap: 15px; z-index: 200; 
+                    justify-content: flex-end; align-items: flex-end; flex-wrap: nowrap;
                 }
                 .thumb { 
-                    width: 120px; 
-                    height: 180px; 
-                    border-radius: 15px; 
-                    background-size: cover; 
-                    background-position: center; 
-                    border: 2px solid rgba(255,255,255,0.2); 
-                    transition: 0.5s; 
-                    opacity: 0.5; 
+                    width: 140px; height: 210px; border-radius: 12px; 
+                    background-size: cover; background-position: center; background-color: #1a1a1a;
+                    border: 2px solid rgba(255,255,255,0.3); transition: 0.4s; 
+                    opacity: 0.4; cursor: pointer;
                 }
-                .thumb.active { opacity: 1; border-color: orange; transform: scale(1.05); box-shadow: 0 0 20px rgba(255,165,0,0.5); }
+                .thumb:hover { opacity: 0.8; transform: translateY(-5px); border-color: #fff; }
+                .thumb.active { opacity: 1; border-color: orange; transform: scale(1.1) translateY(-10px); box-shadow: 0 15px 40px rgba(255,165,0,0.6); }
 
-                #start-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 999; display: flex; align-items: center; justify-content: center; }
-                #start-btn { padding: 25px 60px; font-family: 'Montserrat'; font-size: 26px; font-weight: 900; background: orange; color: #000; border: none; border-radius: 50px; cursor: pointer; transition: 0.3s; }
+                /* NÚT ĐIỀU HƯỚNG */
+                .nav-btns { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; gap: 30px; z-index: 210; }
+                .nav-btn { 
+                    width: 75px; height: 75px; border-radius: 50%; border: 3px solid #fff; 
+                    background: rgba(0,0,0,0.4); color: #fff; font-size: 32px; cursor: pointer; 
+                    display: flex; align-items: center; justify-content: center; transition: 0.3s;
+                    backdrop-filter: blur(10px);
+                }
+                .nav-btn:hover { background: orange; color: #000; border-color: orange; transform: scale(1.15); box-shadow: 0 0 20px rgba(255,165,0,0.4); }
+                .nav-btn:active { transform: scale(0.9); }
+
+                #start-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.97); z-index: 999; display: flex; align-items: center; justify-content: center; }
+                #start-btn { padding: 30px 80px; font-family: 'Montserrat'; font-size: 30px; font-weight: 900; background: orange; color: #000; border: none; border-radius: 60px; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 40px rgba(255,165,0,0.3); }
+                #start-btn:hover { transform: scale(1.05); background: #fff; }
 
                 @keyframes showContent { from { opacity: 0; transform: translate(-30px, -50%); } to { opacity: 1; transform: translate(0, -50%); } }
             </style>
@@ -56,13 +65,23 @@
             <audio id="bg-music" loop src="assets/Splashing Around - The Green Orbs.mp3"></audio>
 
             <div class="container" id="main-slide"></div>
+
+            <div class="nav-btns">
+                <div class="nav-btn" onclick="prevSlide()">❮</div>
+                <div class="nav-btn" onclick="nextSlide()">❯</div>
+            </div>
+
             <div class="thumbnails" id="thumb-bar"></div>
 
             <script>
-                const data = [{"img": "1.png", "title": "CON CH\u00d3 (DOG)", "desc": "\u2022 Kh\u1ee9u gi\u00e1c c\u1ef1c k\u1ef3 nh\u1ea1y b\u00e9n.", "note": "\u2022 B\u1ea1n th\u00e2n c\u1ee7a con ng\u01b0\u1eddi.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#4CAF50"}, {"img": "2.png", "title": "CON M\u00c8O (CAT)", "desc": "\u2022 B\u1eadc th\u1ea7y th\u0103ng b\u1eb1ng.", "note": "\u2022 C\u00f3 th\u1ec3 nh\u1ea3y cao g\u1ea5p 6 l\u1ea7n c\u01a1 th\u1ec3.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#00BCD4"}, {"img": "3.png", "title": "CON G\u00c0 (CHICKEN)", "desc": "\u2022 G\u00e0 tr\u1ed1ng g\u00e1y b\u00e1o th\u1ee9c.", "note": "\u2022 G\u00e0 m\u00e1i \u0111\u1ebb tr\u1ee9ng m\u1ed7i ng\u00e0y.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#FFC107"}, {"img": "4.png", "title": "CON V\u1ecaT (DUCK)", "desc": "\u2022 L\u00f4ng kh\u00f4ng th\u1ea5m n\u01b0\u1edbc.", "note": "\u2022 B\u01a1i l\u1ed9i r\u1ea5t gi\u1ecfi.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#E0F7FA"}, {"img": "5.png", "title": "CON L\u1ee2N (PIG)", "desc": "\u2022 Th\u00edch t\u1eafm b\u00f9n \u0111\u1ec3 l\u00e0m m\u00e1t.", "note": "\u2022 R\u1ea5t th\u00f4ng minh.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#ffffff"}, {"img": "6.png", "title": "CON B\u00d2 (COW)", "desc": "\u2022 D\u00e0nh 8 ti\u1ebfng m\u1ed7i ng\u00e0y \u0111\u1ec3 nhai l\u1ea1i.", "note": "\u2022 D\u1ea1 d\u00e0y c\u00f3 4 ng\u0103n.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#4CAF50"}, {"img": "7.png", "title": "CON NG\u1ef0A (HORSE)", "desc": "\u2022 \u0110\u00f4i m\u1eaft l\u1edbn nh\u1ea5t tr\u00ean c\u1ea1n.", "note": "\u2022 \u0110\u00f4i m\u1eaft l\u1edbn nh\u1ea5t tr\u00ean c\u1ea1n.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#00BCD4"}, {"img": "8.png", "title": "CON C\u1eeaU (SHEEP)", "desc": "\u2022 C\u00f3 tr\u00ed nh\u1edb r\u1ea5t t\u1ed1t.", "note": "\u2022 Cung c\u1ea5p len \u1ea5m \u00e1p.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#FFC107"}, {"img": "9.png", "title": "CON TH\u1ece (RABBIT)", "desc": "\u2022 R\u0103ng kh\u00f4ng ng\u1eebng m\u1ecdc d\u00e0i.", "note": "\u2022 \u0110\u00f4i tai d\u00e0i th\u00ednh nh\u1ea1y.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#E0F7FA"}, {"img": "10.png", "title": "CON D\u00ca (GOAT)", "desc": "\u2022 Chuy\u00ean gia leo tr\u00e8o.", "note": "\u2022 \u0110\u1ed3ng t\u1eed m\u1eaft h\u00ecnh ch\u1eef nh\u1eadt.", "voice": "N\u1eef", "label": "Farm & Pets", "color": "#ffffff"}];
-                let currentIndex = 0;
+                const data = [{"media": [{"src": "assets/1/1.mp4", "type": "video"}], "thumb": "assets/1/thumbnail.jpg", "title": "Con H\u1ed5 - Tiger", "desc": "", "note": "\"Ch\u00faa t\u1ec3 r\u1eebng xanh v\u1edbi b\u1ed9 m\u00f3ng vu\u1ed1t s\u1eafc nh\u1ecdn. B\u00e9 h\u00e3y \u0111\u1ee9ng xa \u0111\u1ec3 quan s\u00e1t qua m\u00e0n h\u00ecnh th\u00f4i nh\u00e9.\"", "voice": "N\u1eef", "color": "#4CAF50"}, {"media": [{"src": "assets/2/1.mp4", "type": "video"}], "thumb": "assets/2/thumbnail1.jpg", "title": "S\u01b0 T\u1eed - Lion", "desc": "", "note": "\"V\u1ecb vua \u0111\u1ed3ng c\u1ecf c\u00f3 ti\u1ebfng g\u1ea7m r\u1ea5t l\u1edbn. \u0110\u00e2y l\u00e0 lo\u00e0i s\u0103n m\u1ed3i c\u1ef1c k\u1ef3 nguy hi\u1ec3m \u0111\u1ea5y.\"", "voice": "N\u1eef", "color": "#00BCD4"}, {"media": [{"src": "assets/3/1.mp4", "type": "video"}], "thumb": "assets/3/thumbnail.jpg", "title": "B\u00e1o Hoa Mai - Leopard", "desc": "", "note": "\"Lo\u00e0i b\u00e1o ch\u1ea1y r\u1ea5t nhanh v\u00e0 leo tr\u00e8o gi\u1ecfi. Ch\u00fang ta kh\u00f4ng n\u00ean l\u1ea1i g\u1ea7n n\u01a1i ch\u00fang sinh s\u1ed1ng.\"", "voice": "N\u1eef", "color": "#FFC107"}, {"media": [{"src": "assets/4/1.mp4", "type": "video"}], "thumb": "assets/4/thumbnail.jpg", "title": "CON V\u1ecaT (DUCK)", "desc": "\u2022 L\u00f4ng kh\u00f4ng th\u1ea5m n\u01b0\u1edbc.", "note": "\u2022 B\u01a1i l\u1ed9i r\u1ea5t gi\u1ecfi.", "voice": "Nam", "color": "#E0F7FA"}, {"media": [{"src": "assets/5/1.mp4", "type": "video"}], "thumb": "assets/5/thumbnail.jpg", "title": "CON L\u1ee2N (PIG)", "desc": "\u2022 Th\u00edch t\u1eafm b\u00f9n \u0111\u1ec3 l\u00e0m m\u00e1t.", "note": "\u2022 R\u1ea5t th\u00f4ng minh.", "voice": "N\u1eef", "color": "#ffffff"}];
+                let slideIndex = 0;
+                let subMediaIndex = 0;
                 const synth = window.speechSynthesis;
                 const bgMusic = document.getElementById('bg-music');
+                let voices = [];
+                let mediaInterval;
+                let autoSlideTimeout;
 
                 function init() {
                     const slideCont = document.getElementById('main-slide');
@@ -70,85 +89,142 @@
                     data.forEach((item, i) => {
                         const slide = document.createElement('div');
                         slide.className = `item ${i===0?'active':''}`;
-                        slide.style.backgroundImage = `url('assets/${item.img}')`;
-                        slide.innerHTML = `
+
+                        item.media.forEach((m, mi) => {
+                            if(m.type === 'video') {
+                                const vid = document.createElement('video');
+                                vid.className = `media-layer ${mi===0?'visible':''}`;
+                                vid.muted = true;
+                                vid.playsInline = true;
+                                vid.loop = true;
+                                vid.src = m.src;
+                                slide.appendChild(vid);
+                            } else {
+                                const img = document.createElement('div');
+                                img.className = `media-layer ${mi===0?'visible':''}`;
+                                img.style.backgroundImage = `url('${m.src}')`;
+                                img.style.backgroundSize = 'cover';
+                                img.style.backgroundPosition = 'center';
+                                slide.appendChild(img);
+                            }
+                        });
+
+                        slide.innerHTML += `
                             <div class="overlay"></div>
                             <div class="content">
-                                <div class="name" style="border-left: 12px solid ${item.color}; padding-left: 25px;">${item.title}</div>
+                                <div class="name" style="border-left: 15px solid ${item.color}; padding-left: 25px;">${item.title}</div>
                                 <div class="des">${item.desc}</div>
-                                <div class="note-box" style="color: ${item.color}; text-shadow: 0 0 15px ${item.color}80;">${item.note}</div>
+                                <div class="note-box" style="color: ${item.color}">${item.note}</div>
                             </div>`;
                         slideCont.appendChild(slide);
 
+                        // Tạo Thumbnail với hình ảnh tự động nhận diện
                         const thumb = document.createElement('div');
                         thumb.className = `thumb ${i===0?'active':''}`;
-                        thumb.style.backgroundImage = `url('assets/${item.img}')`;
+                        thumb.style.backgroundImage = `url('${item.thumb}')`;
+                        thumb.onclick = () => jumpToSlide(i);
                         thumbCont.appendChild(thumb);
                     });
+                    updateVoices();
+                }
+
+                function updateVoices() {
+                    voices = synth.getVoices();
+                }
+                if (speechSynthesis.onvoiceschanged !== undefined) {
+                    speechSynthesis.onvoiceschanged = updateVoices;
+                }
+
+                function cycleMedia() {
+                    const currentSlide = document.querySelectorAll('.item')[slideIndex];
+                    const layers = currentSlide.querySelectorAll('.media-layer');
+                    if(layers.length <= 1) return;
+
+                    layers[subMediaIndex].classList.remove('visible');
+                    if(layers[subMediaIndex].tagName === 'VIDEO') layers[subMediaIndex].pause();
+
+                    subMediaIndex = (subMediaIndex + 1) % layers.length;
+                    layers[subMediaIndex].classList.add('visible');
+                    if(layers[subMediaIndex].tagName === 'VIDEO') layers[subMediaIndex].play();
                 }
 
                 function speak(item) {
                     synth.cancel();
-                    const textToRead = `${item.title}. ${item.desc}. ${item.note}`;
-                    const utter = new SpeechSynthesisUtterance(textToRead);
+                    clearInterval(mediaInterval);
+                    clearTimeout(autoSlideTimeout);
+                    subMediaIndex = 0;
+
+                    const text = `${item.title}. ${item.desc}. ${item.note}`;
+                    const utter = new SpeechSynthesisUtterance(text);
                     utter.lang = 'vi-VN';
-                    utter.volume = 1.0; // Đặt âm lượng giọng đọc lớn nhất
-                    utter.rate = 0.88;  // Đọc chậm hơn để bé dễ nghe
+                    utter.volume = 1.0; 
+                    utter.rate = 0.85;
 
-                    const voices = synth.getVoices();
-                    const viVoices = voices.filter(v => v.lang.includes('vi'));
-
-                    // Logic lọc giọng thông minh hơn
-                    if (item.voice === 'Nam') {
-                        utter.voice = viVoices.find(v => 
-                            v.name.toLowerCase().includes('male') || 
-                            v.name.toLowerCase().includes('an') || 
-                            v.name.toLowerCase().includes('minh') ||
-                            v.name.toLowerCase().includes('hùng')
-                        ) || viVoices[0];
-                    } else {
-                        utter.voice = viVoices.find(v => 
-                            v.name.toLowerCase().includes('female') || 
-                            v.name.toLowerCase().includes('linh') || 
-                            v.name.toLowerCase().includes('nhi') ||
-                            v.name.toLowerCase().includes('hương')
-                        ) || viVoices[0];
+                    const viVoices = voices.filter(v => v.lang.toLowerCase().includes('vi'));
+                    if (viVoices.length > 0) {
+                        const nameKey = item.voice === 'Nam' ? ['an', 'nam', 'minh', 'hung'] : ['hoai', 'linh', 'nhi', 'chi'];
+                        utter.voice = viVoices.find(v => nameKey.some(k => v.name.toLowerCase().includes(k))) || viVoices[0];
                     }
 
-                    synth.speak(utter);
+                    mediaInterval = setInterval(cycleMedia, 6000);
 
+                    synth.speak(utter);
                     utter.onend = () => {
-                        setTimeout(nextSlide, 4000); // Đợi 4 giây sau khi đọc xong mới chuyển
+                        clearInterval(mediaInterval);
+                        autoSlideTimeout = setTimeout(nextSlide, 5000);
                     };
                 }
 
-                function nextSlide() {
+                function updateActiveUI(index) {
                     const slides = document.querySelectorAll('.item');
                     const thumbs = document.querySelectorAll('.thumb');
-                    if (slides.length <= 1) return;
 
-                    slides[currentIndex].classList.remove('active');
-                    thumbs[currentIndex].classList.remove('active');
+                    slides.forEach(s => {
+                        s.classList.remove('active');
+                        s.querySelectorAll('video').forEach(v => v.pause());
+                    });
+                    thumbs.forEach(t => t.classList.remove('active'));
 
-                    currentIndex = (currentIndex + 1) % data.length;
+                    slideIndex = index;
+                    const nextSlideElem = slides[slideIndex];
+                    nextSlideElem.classList.add('active');
+                    thumbs[slideIndex].classList.add('active');
 
-                    slides[currentIndex].classList.add('active');
-                    thumbs[currentIndex].classList.add('active');
-                    speak(data[currentIndex]);
+                    const layers = nextSlideElem.querySelectorAll('.media-layer');
+                    layers.forEach((l, idx) => {
+                        if(idx === 0) {
+                            l.classList.add('visible');
+                            if(l.tagName === 'VIDEO') l.play();
+                        } else {
+                            l.classList.remove('visible');
+                            if(l.tagName === 'VIDEO') l.pause();
+                        }
+                    });
+                    speak(data[slideIndex]);
+                }
+
+                function nextSlide() {
+                    let nextIdx = (slideIndex + 1) % data.length;
+                    updateActiveUI(nextIdx);
+                }
+
+                function prevSlide() {
+                    let prevIdx = (slideIndex - 1 + data.length) % data.length;
+                    updateActiveUI(prevIdx);
+                }
+
+                function jumpToSlide(index) {
+                    updateActiveUI(index);
                 }
 
                 document.getElementById('start-btn').onclick = () => {
                     document.getElementById('start-overlay').style.display = 'none';
-                    bgMusic.volume = 0.08; // Giảm nhạc nền xuống mức rất nhỏ (8%)
-                    bgMusic.play().catch(e => console.log(e));
-                    speak(data[0]);
+                    bgMusic.volume = 0.08; 
+                    bgMusic.play();
+                    updateActiveUI(0);
                 };
 
                 init();
-                // Buộc nạp giọng nói ngay lập tức
-                window.speechSynthesis.onvoiceschanged = () => {
-                    console.log("Danh sách giọng nói đã cập nhật");
-                };
             </script>
         </body>
         </html>
