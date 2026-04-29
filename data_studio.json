@@ -8,7 +8,7 @@
             "title": "Con Hổ - Tiger",
             "desc": "",
             "note": "\"Chúa tể rừng xanh với bộ móng vuốt sắc nhọn. Bé hãy đứng xa để quan sát qua màn hình thôi nhé.\"",
-            "voice": "Nữ",
+            "voice": "Nam",
             "theme": "Rừng"
         },
         {
@@ -17,7 +17,7 @@
             "title": "Sư Tử - Lion",
             "desc": "",
             "note": "\"Vị vua đồng cỏ có tiếng gầm rất lớn. Đây là loài săn mồi cực kỳ nguy hiểm đấy.\"",
-            "voice": "Nữ",
+            "voice": "Nam",
             "theme": "Biển"
         },
         {
@@ -26,15 +26,15 @@
             "title": "Báo Hoa Mai - Leopard",
             "desc": "",
             "note": "\"Loài báo chạy rất nhanh và leo trèo giỏi. Chúng ta không nên lại gần nơi chúng sinh sống.\"",
-            "voice": "Nữ",
+            "voice": "Nam",
             "theme": "Sa mạc"
         },
         {
             "folder": "4",
             "files": "1.mp4",
-            "title": "CON VỊT (DUCK)",
-            "desc": "• Lông không thấm nước.",
-            "note": "• Bơi lội rất giỏi.",
+            "title": "Gấu Xám - Grizzly Bear",
+            "desc": "",
+            "note": "\"Gấu xám rất khỏe và có thể tấn công nếu cảm thấy bị đe dọa. Hãy tránh xa khu vực có gấu nhé.\"",
             "voice": "Nam",
             "theme": "Tuyết"
         },
